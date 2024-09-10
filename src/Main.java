@@ -10,6 +10,18 @@ public class Main {
 
         System.out.println(); // For readability
 
+        // Change the speed within the limit
+        car.setSpeed(80); // Valid speed
+        car.move();
+
+        System.out.println(); // For readability
+
+        // Try to set speed above the limit
+        car.setSpeed(150); // Exceeds the limit
+        car.move();
+
+        System.out.println(); // For readability
+
         // Creating a TrafficSignal object
         TrafficSignal signal = new TrafficSignal("Red", 30);
         signal.displayStatus();
