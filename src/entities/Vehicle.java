@@ -8,12 +8,11 @@ public class Vehicle {
     // Private constant for maximum speed
     private static final int MAX_SPEED = 120;
 
-    // Constructor
+    // Constructor using `this` pointer to resolve naming conflict
     public Vehicle(String type, int speed) {
-        this.type = type;
-        // Ensure the initial speed is within the limit
+        this.type = type;  // 'this' refers to the instance variable
         if (speed <= MAX_SPEED) {
-            this.speed = speed;
+            this.speed = speed;  // 'this' refers to the instance variable
         } else {
             this.speed = MAX_SPEED;
             System.out.println("Initial speed exceeds max limit. Setting speed to " + MAX_SPEED + " km/h.");
@@ -31,11 +30,11 @@ public class Vehicle {
         System.out.println(type + " is moving at " + speed + " km/h.");
     }
 
-    // Method to change the vehicle speed within the limit
-    public void setSpeed(int newSpeed) {
-        if (newSpeed <= MAX_SPEED) {
-            this.speed = newSpeed;
-            System.out.println(type + " speed set to " + speed + " km/h.");
+    // Method to change the vehicle speed using `this` pointer
+    public void setSpeed(int speed) {
+        if (speed <= MAX_SPEED) {
+            this.speed = speed;  // 'this' refers to the instance variable
+            System.out.println(this.type + " speed set to " + this.speed + " km/h.");
         } else {
             System.out.println("Error: Speed exceeds the maximum limit of " + MAX_SPEED + " km/h.");
         }
