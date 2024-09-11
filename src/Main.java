@@ -1,31 +1,21 @@
-import entities.Vehicle;
-import entities.TrafficSignal;
+import entities.Car;
+import entities.Bus;
+import simulation.*;
 
 public class Main {
     public static void main(String[] args) {
-        // Creating a Vehicle object
-        Vehicle car = new Vehicle("Car", 60);
-        car.displayDetails();
-        car.move();
+        // Create TrafficManager to handle 3 vehicles
+        TrafficManager trafficManager = new TrafficManager(3);
 
-        System.out.println(); // For readability
+        // Add different vehicles to the TrafficManager
+        trafficManager.addVehicle(new Car("Sedan", 50, 180), 0);
+        trafficManager.addVehicle(new Bus("CityBus", 30, 100), 1);
+        trafficManager.addVehicle(new Car("SUV", 60, 160), 2);
 
-        // Change the speed within the limit
-        car.setSpeed(80); // Valid speed
-        car.move();
+        // Display vehicle details
+        trafficManager.displayAllVehicles();
 
-        System.out.println(); // For readability
-
-        // Try to set speed above the limit
-        car.setSpeed(150); // Exceeds the limit
-        car.move();
-
-        System.out.println(); // For readability
-
-        // Creating a TrafficSignal object
-        TrafficSignal signal = new TrafficSignal("Red", 30);
-        signal.displayStatus();
-        signal.changeSignal("Green");
-        signal.displayStatus();
+        // Simulate traffic flow
+        trafficManager.simulateTraffic();
     }
 }
