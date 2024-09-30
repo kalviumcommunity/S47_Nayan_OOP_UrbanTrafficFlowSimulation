@@ -8,13 +8,13 @@ public class TrafficManager {
 
     // Constructor to initialize the array of vehicles
     public TrafficManager(int numVehicles) {
-        vehicles = new Vehicle[numVehicles];  // Create an array with specified number of vehicles
+        vehicles = new Vehicle[numVehicles];  // Dynamically allocate the array of vehicles
     }
 
     // Method to add a vehicle to the array
     public void addVehicle(Vehicle vehicle, int index) {
         if (index < vehicles.length) {
-            vehicles[index] = vehicle;
+            vehicles[index] = vehicle;  // Store vehicle dynamically in array
         } else {
             System.out.println("Index out of bounds: Cannot add vehicle.");
         }
