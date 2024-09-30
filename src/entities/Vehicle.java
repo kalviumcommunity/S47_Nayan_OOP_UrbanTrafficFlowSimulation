@@ -53,6 +53,7 @@ public abstract class Vehicle {
         // Method to display vehicle details
     public void displayDetails() {
         System.out.println("Vehicle Type: " + type);
+        System.out.println("Model: " + getModel());
         System.out.println("Speed: " + speed + " km/h");
     }
 }
