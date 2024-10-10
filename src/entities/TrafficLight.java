@@ -1,7 +1,10 @@
 package entities;
 
 public class TrafficLight {
-    // Attributes
+    // Static variable to keep track of the total number of traffic lights created
+    private static int totalTrafficLights = 0;
+    
+    // Instance variables
     private String location;
     private String lightColor;
     private int duration;  // Duration in seconds
@@ -11,6 +14,12 @@ public class TrafficLight {
         this.location = location;
         this.lightColor = lightColor;
         this.duration = duration;
+        totalTrafficLights++;  // Increment static counter whenever a new traffic light is created
+    }
+
+    // Static method to get the total number of traffic lights
+    public static int getTotalTrafficLights() {
+        return totalTrafficLights;
     }
 
     // Method to display the current light status
