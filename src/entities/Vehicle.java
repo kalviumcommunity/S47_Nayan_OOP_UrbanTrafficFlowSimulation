@@ -6,16 +6,23 @@ public abstract class Vehicle {
     private int speed;
     private int maxSpeed;  // Each vehicle has its own max speed
 
+    // Static variables
+    private static int totalVehicles = 0;  // Counts the total number of vehicles created
+
     // Constructor using `this` pointer to resolve naming conflict
     public Vehicle(String type, int speed, int maxSpeed) {
         this.type = type;
         this.maxSpeed = maxSpeed;  // Set the max speed for this vehicle
+
         if (speed <= maxSpeed) {
             this.speed = speed;
         } else {
             this.speed = maxSpeed;
             System.out.println("Initial speed exceeds max limit. Setting speed to " + maxSpeed + " km/h.");
         }
+
+        // Increment static variable for each vehicle created
+        totalVehicles++;
     }
 
     // Getter for type
@@ -33,13 +40,9 @@ public abstract class Vehicle {
         return this.maxSpeed;
     }
 
-    // Getter for model
+    // Abstract method to be implemented by subclasses to return the model
     public abstract String getModel();
 
-    // Method to simulate vehicle movement
-    public void move() {
-        System.out.println(type + " is moving at " + speed + " km/h.");
-    }
 
     // Method to change the vehicle speed using `this` pointer
     public void setSpeed(int speed) {
@@ -50,10 +53,18 @@ public abstract class Vehicle {
             System.out.println("Error: Speed exceeds the maximum limit of " + maxSpeed + " km/h.");
         }
     }
-        // Method to display vehicle details
+
+    // Method to display vehicle details
     public void displayDetails() {
         System.out.println("Vehicle Type: " + type);
         System.out.println("Model: " + getModel());
         System.out.println("Speed: " + speed + " km/h");
+        System.out.println("Max Speed: " + maxSpeed + " km/h");
     }
+
+    // Static method to get the total number of vehicles created
+    public static int getTotalVehicles() {
+        return totalVehicles;
+    }
+
 }
