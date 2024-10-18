@@ -3,7 +3,7 @@ package entities;
 public class TrafficLight {
     // Static variable to keep track of the total number of traffic lights created
     private static int totalTrafficLights = 0;
-    
+
     // Instance variables
     private String location;
     private String lightColor;
@@ -32,5 +32,10 @@ public class TrafficLight {
         this.lightColor = newColor;
         this.duration = newDuration;
         System.out.println("Traffic light at " + location + " changed to " + lightColor + " for " + duration + " seconds.");
+    }
+
+    // Getter for the light color
+    public String getLightColor() {
+        return lightColor;
     }
 }
