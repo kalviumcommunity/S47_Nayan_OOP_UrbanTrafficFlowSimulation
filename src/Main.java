@@ -1,39 +1,42 @@
-import entities.TrafficLight;
-import entities.Pedestrian;
-import entities.Accident;
+import simulation.TrafficManager;
 import entities.Vehicle;
 import entities.Car;
 import entities.EmergencyVehicle;
-import simulation.TrafficManager;
+import entities.TrafficLight;
+import entities.SpeedLimitRule;
+import entities.CarFuelMonitor;
 
 public class Main {
     public static void main(String[] args) {
-        // Creating TrafficManager
-        TrafficManager trafficManager = new TrafficManager(4);
+        // Create a TrafficManager instance for 3 vehicles
+        TrafficManager manager = new TrafficManager(3);
 
-        // Dynamically creating Car and EmergencyVehicle objects
-        trafficManager.addVehicle(new Car("Sedan", 50, 180), 0);
-        trafficManager.addVehicle(new Car("SUV", 60, 160), 1);
-        trafficManager.addVehicle(new EmergencyVehicle("Ambulance", 80, 200, "Ambulance"), 2);
-        trafficManager.addVehicle(new EmergencyVehicle("Fire Truck", 70, 150, "Fire Truck"), 3);
+        // Create vehicle instances
+        Vehicle car = new Car("Sedan", 60, 120);
+        Vehicle ambulance = new EmergencyVehicle("Ambulance", 80, 150, "Emergency Response");
+        
+        // Add vehicles to the traffic manager
+        manager.addVehicle(car, 0);
+        manager.addVehicle(ambulance, 1);
 
-        // Creating a TrafficLight
-        TrafficLight trafficLight = new TrafficLight("Main St", "Red", 60);
-        trafficManager.setTrafficLight(trafficLight);
+        // Create and set a traffic light (red light by default)
+        TrafficLight trafficLight = new TrafficLight("Main Intersection", "Red", 30);
+        manager.setTrafficLight(trafficLight);
 
-        // Display the total number of traffic lights created
-        System.out.println("Total Traffic Lights: " + TrafficLight.getTotalTrafficLights());
+        // Create and set a traffic rule (speed limit rule)
+        SpeedLimitRule speedLimitRule = new SpeedLimitRule(100);  // Speed limit set to 100 km/h
+        manager.setTrafficRule(speedLimitRule);
 
-        // Simulate Traffic Flow
-        trafficManager.simulateTraffic();
+        // Create and set a fuel monitor for fuel efficiency tracking
+        CarFuelMonitor carFuelMonitor = new CarFuelMonitor();
+        manager.setFuelMonitor(carFuelMonitor);
 
-        // Display all vehicle details
-        // System.out.println("\nDisplaying all vehicle details:");
-        // trafficManager.displayAllVehicles();
+        // Simulate traffic (this will apply both rules and fuel monitoring)
+        manager.simulateTraffic();
 
-        // Accident Simulation
-        Vehicle[] affectedVehicles = {new Car("Sedan", 50, 180), new Car("SUV", 60, 160)};
-        Accident accident = new Accident("Highway 23", "Major", affectedVehicles);
-        accident.reportAccident();
+        // Display all vehicle details at the end
+        manager.displayAllVehicles();
+
+        car.setSpeed(120, speedLimitRule);
     }
 }

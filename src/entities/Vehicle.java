@@ -6,7 +6,7 @@ public abstract class Vehicle {
     private int speed;
     private int maxSpeed;  // Each vehicle has its own max speed
 
-    // Static variables
+    // Static variable
     private static int totalVehicles = 0;  // Counts the total number of vehicles created
 
     // Constructor using `this` pointer to resolve naming conflict
@@ -43,10 +43,14 @@ public abstract class Vehicle {
     // Abstract method to be implemented by subclasses to return the model
     public abstract String getModel();
 
+    // Method to change the vehicle speed, enforce speed limit with TrafficRule
+    public void setSpeed(int speed, TrafficRule rule) {
+        if (rule != null) {
+            this.speed = speed;
+            rule.enforceRule(this);  // Call the enforce rule method
+        }
 
-    // Method to change the vehicle speed using `this` pointer
-    public void setSpeed(int speed) {
-        if (speed <= maxSpeed) {
+        else if (speed <= maxSpeed) {
             this.speed = speed;
             System.out.println(this.type + " speed set to " + this.speed + " km/h.");
         } else {
@@ -66,5 +70,4 @@ public abstract class Vehicle {
     public static int getTotalVehicles() {
         return totalVehicles;
     }
-
 }
