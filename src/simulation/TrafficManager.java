@@ -3,13 +3,17 @@ package simulation;
 import entities.Vehicle;
 import entities.EmergencyVehicle;
 import entities.TrafficLight;
+import entities.TrafficRule;
+import entities.FuelMonitor;
 
 public class TrafficManager {
     // Array to store multiple vehicles
     private Vehicle[] vehicles;
-
     // Reference to TrafficLight for simulation control
     private TrafficLight trafficLight;
+    // Add TrafficRule and FuelMonitor references
+    private TrafficRule trafficRule;
+    private FuelMonitor fuelMonitor;
 
     // Constructor to initialize the array of vehicles
     public TrafficManager(int numVehicles) {
@@ -30,43 +34,50 @@ public class TrafficManager {
         this.trafficLight = light;
     }
 
-// Method to simulate traffic flow for all vehicles, prioritizing emergency vehicles
-public void simulateTraffic() {
-    if (trafficLight != null) {
-        trafficLight.displayLightStatus();
+    // Method to set the traffic rule (like speed limit)
+    public void setTrafficRule(TrafficRule rule) {
+        this.trafficRule = rule;
     }
 
-    for (Vehicle v : vehicles) {
-        if (v != null) {
-            int newSpeed;
+    // Method to set the fuel monitor (for fuel efficiency)
+    public void setFuelMonitor(FuelMonitor monitor) {
+        this.fuelMonitor = monitor;
+    }
 
-            if (v instanceof EmergencyVehicle) {
-                // Emergency vehicles get priority and don't stop for traffic lights
-                System.out.println("Emergency vehicle (" + v.getType() + ") moving with priority!");
-                newSpeed = v.getMaxSpeed();  // Allow emergency vehicles to move at max speed
-            } else {
-                // Non-emergency vehicles follow traffic light rules
-                if (trafficLight != null && "Green".equals(trafficLight.getLightColor())) {
-                    System.out.println("Vehicle (" + v.getModel() + ") moving through green light.");
+    // Method to simulate traffic flow for all vehicles, prioritizing emergency vehicles
+    public void simulateTraffic() {
+        if (trafficLight != null) {
+            trafficLight.displayLightStatus();
+        }
+
+        for (Vehicle v : vehicles) {
+            if (v != null) {
+                if (v instanceof EmergencyVehicle) {
+                    // Emergency vehicles get priority and don't stop for traffic lights
+                    System.out.println("Emergency vehicle (" + v.getType() + ") moving with priority!");
                 } else {
-                    System.out.println("Vehicle (" + v.getModel() + ") is waiting at the red light.");
-                    newSpeed = 0;  // Non-emergency vehicles stop at red light
-                    v.setSpeed(newSpeed); // Set stopped vehicle speed to 0
-                    continue; // Skip further actions if stopped
+                    // Non-emergency vehicles follow traffic light rules
+                    if (trafficLight != null && "Green".equals(trafficLight.getLightColor())) {
+                        System.out.println("Vehicle (" + v.getType() + ") moving through green light.");
+                    } else {
+                        System.out.println("Vehicle (" + v.getType() + ") is waiting at the red light.");
+                    }
                 }
 
-                // Set speed dynamically based on max speed limit
-                newSpeed = Math.min(v.getMaxSpeed(), 70);  // Set speed to 70 km/h or the max speed of the vehicle, whichever is lower
-            }
+                // Apply the traffic rule (enforce speed limits, etc.)
+                if (trafficRule != null) {
+                    trafficRule.enforceRule(v);  // Enforce specific rule based on the vehicle type
+                }
 
-            // Apply new speed and print information
-            v.setSpeed(newSpeed);
-            System.out.println(v.getType() + " new speed: " + v.getSpeed() + " km/h.");
-            System.out.println("---------------------");
+                // Apply fuel efficiency monitoring (for demonstration)
+                if (fuelMonitor != null) {
+                    fuelMonitor.monitorFuelEfficiency(v);  // Monitor the fuel efficiency for each vehicle
+                }
+
+                System.out.println("---------------------");
+            }
         }
     }
-}
-
 
     // Method to display all vehicle details
     public void displayAllVehicles() {

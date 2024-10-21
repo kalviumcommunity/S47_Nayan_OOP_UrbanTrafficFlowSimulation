@@ -25,8 +25,6 @@ public class EmergencyVehicle extends Vehicle {
         return this.getEmergencyType();  // The emergencyType represents the model for emergency vehicles
     }
 
-    // Overriding the move method to prioritize emergency vehicles
-    // @Override
     public void move() {
         System.out.println(emergencyType + " is moving with priority at speed: " + getSpeed() + " km/h.");
     }
