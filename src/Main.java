@@ -6,55 +6,80 @@ import entities.EmergencyVehicle;
 import entities.TrafficLight;
 import entities.SpeedLimitRule;
 import entities.CarFuelMonitor;
+import entities.Ambulance;
+import entities.FireTruck;
 
 public class Main {
-    public static void demonstrateConstructorsAndAutoCloseable() {
-        System.out.println("\n=== Demonstrating Constructors and AutoCloseable ===\n");
+    // public static void demonstrateConstructorsAndAutoCloseable() {
+    //     System.out.println("\n=== Demonstrating Constructors and AutoCloseable ===\n");
 
-        // 1. Using Default Constructor
-        System.out.println("1. Creating factory with Default Constructor:");
-        try (VehicleFactory defaultFactory = new VehicleFactory()) {
-            defaultFactory.createVehicle("Sedan");
-        } // AutoCloseable will automatically close the factory here
+    //     // 1. Using Default Constructor
+    //     System.out.println("1. Creating factory with Default Constructor:");
+    //     try (VehicleFactory defaultFactory = new VehicleFactory()) {
+    //         defaultFactory.createVehicle("Sedan");
+    //     } // AutoCloseable will automatically close the factory here
 
-        // 2. Using Parameterized Constructor
-        System.out.println("\n2. Creating factory with Parameterized Constructor:");
-        try (VehicleFactory customFactory = new VehicleFactory("Custom Factory", 200)) {
-            customFactory.createVehicle("SUV");
-            customFactory.createVehicle("Truck");
-        } // AutoCloseable will automatically close the factory here
+    //     // 2. Using Parameterized Constructor
+    //     System.out.println("\n2. Creating factory with Parameterized Constructor:");
+    //     try (VehicleFactory customFactory = new VehicleFactory("Custom Factory", 200)) {
+    //         customFactory.createVehicle("SUV");
+    //         customFactory.createVehicle("Truck");
+    //     } // AutoCloseable will automatically close the factory here
 
-        // 3. Using Copy Constructor
-        System.out.println("\n3. Creating factory with Copy Constructor:");
-        VehicleFactory originalFactory = new VehicleFactory("Original Factory", 150);
-        try (VehicleFactory copiedFactory = new VehicleFactory(originalFactory)) {
-            copiedFactory.createVehicle("Sports Car");
-        } // AutoCloseable will automatically close the copied factory
+    //     // 3. Using Copy Constructor
+    //     System.out.println("\n3. Creating factory with Copy Constructor:");
+    //     VehicleFactory originalFactory = new VehicleFactory("Original Factory", 150);
+    //     try (VehicleFactory copiedFactory = new VehicleFactory(originalFactory)) {
+    //         copiedFactory.createVehicle("Sports Car");
+    //     } // AutoCloseable will automatically close the copied factory
 
-        // 4. Demonstrating factory after closing
-        System.out.println("\n4. Demonstrating closed factory behavior:");
-        try (VehicleFactory factory = new VehicleFactory("Test Factory", 100)) {
-            factory.createVehicle("Sedan"); // This will work
-            factory.close(); // Explicitly closing
-            factory.createVehicle("SUV");   // This won't work as factory is closed
-            factory.getFactoryName();       // This won't work as factory is closed
-        }
+    //     // 4. Demonstrating factory after closing
+    //     System.out.println("\n4. Demonstrating closed factory behavior:");
+    //     try (VehicleFactory factory = new VehicleFactory("Test Factory", 100)) {
+    //         factory.createVehicle("Sedan"); // This will work
+    //         factory.close(); // Explicitly closing
+    //         factory.createVehicle("SUV");   // This won't work as factory is closed
+    //         factory.getFactoryName();       // This won't work as factory is closed
+    //     }
+    // }
+
+    public static void demonstrateInheritance() {
+        System.out.println("\n=== Demonstrating Different Types of Inheritance ===\n");
+
+        // 1. Hierarchical Inheritance (Vehicle -> Car)
+        System.out.println("1. Hierarchical Inheritance Example:");
+        Car sedan = new Car("Sedan", 60, 180);
+        sedan.honk();
+        System.out.println("Car Model: " + sedan.getModel());
+
+        // 2. Multilevel Inheritance (Vehicle -> EmergencyVehicle -> Ambulance)
+        System.out.println("\n2. Multilevel Inheritance Example:");
+        Ambulance ambulance = new Ambulance("A-101", 80, 200, "City Hospital");
+        ambulance.startEmergencyResponse();
+        ambulance.move();
+        ambulance.endEmergencyResponse();
+
+        // 3. Interface Inheritance (VehicleMonitor interface implementation)
+        System.out.println("\n3. Interface Inheritance Example:");
+        FireTruck fireTruck = new FireTruck("FT-501", 70, 160, 5000);
+        fireTruck.checkStatus();
+        fireTruck.activateWaterPump();
+        fireTruck.logVehicleData();
     }
+
     public static void main(String[] args) {
+        demonstrateInheritance();
+        // demonstrateConstructorsAndAutoCloseable();
 
-        demonstrateConstructorsAndAutoCloseable();
         // Create downtown factory
-        VehicleFactory downtown = new VehicleFactory("Downtown", 200);
-        downtown.createVehicle("Car");
-        
-        // When no longer needed
-        downtown.close(); // Clean shutdown
+        // VehicleFactory downtown = new VehicleFactory("Downtown", 200);
+        // downtown.createVehicle("Car");
 
-        downtown.getFactoryCapacity(); // It won't work as factory is closed
-        downtown.getFactoryName(); // It won't work as factory is closed
+        // // When no longer needed
+        // downtown.close(); // Clean shutdown
 
-
-
+        // downtown.getFactoryCapacity(); // It won't work as factory is closed
+        // downtown.getFactoryName(); // It won't work as factory is closed
 
         // // Create a TrafficManager instance for 3 vehicles
         // TrafficManager manager = new TrafficManager(3);
@@ -62,7 +87,7 @@ public class Main {
         // // Create vehicle instances
         // Vehicle car = new Car("Sedan", 60, 120);
         // Vehicle ambulance = new EmergencyVehicle("Ambulance", 80, 150, "Emergency Response");
-        
+
         // // Add vehicles to the traffic manager
         // manager.addVehicle(car, 0);
         // manager.addVehicle(ambulance, 1);
