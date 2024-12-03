@@ -40,4 +40,34 @@ public class EmergencyVehicle extends Vehicle {
         super.displayDetails();
         System.out.println("Emergency Vehicle Type: " + emergencyType);
     }
+
+    // Method overloading to demonstrate polymorphism
+
+    // Basic emergency response
+    public void respondToEmergency() {
+        System.out.println(emergencyType + " responding to emergency!");
+        this.setSpeed(this.getMaxSpeed());
+    }
+
+    // Emergency response with specific location
+    public void respondToEmergency(String location) {
+        System.out.println(emergencyType + " responding to emergency at location: " + location);
+        this.setSpeed(this.getMaxSpeed());
+    }
+
+    // Emergency response with location and severity level
+    public void respondToEmergency(String location, int severityLevel) {
+        System.out.println(emergencyType + " responding to level " + severityLevel + " emergency at location: " + location);
+        this.setSpeed(this.getMaxSpeed());
+        if (severityLevel > 8) {
+            System.out.println("CRITICAL EMERGENCY! Alerting all nearby units.");
+        }
+    }
+
+    // Emergency response with location, severity, and additional units needed
+    public void respondToEmergency(String location, int severityLevel, int additionalUnitsNeeded) {
+        System.out.println(emergencyType + " responding to level " + severityLevel + " emergency at location: " + location);
+        System.out.println("Requesting " + additionalUnitsNeeded + " additional units for backup.");
+        this.setSpeed(this.getMaxSpeed());
+    }
 }
