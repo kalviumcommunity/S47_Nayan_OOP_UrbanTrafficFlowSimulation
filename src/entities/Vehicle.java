@@ -58,6 +58,16 @@ public abstract class Vehicle {
         }
     }
 
+    // Overloaded method to set speed without traffic rule
+    public void setSpeed(int speed) {
+        if (speed <= maxSpeed) {
+            this.speed = speed;
+            System.out.println(this.type + " speed set to " + this.speed + " km/h.");
+        } else {
+            System.out.println("Error: Speed exceeds the maximum limit of " + maxSpeed + " km/h.");
+        }
+    }
+
     // Method to display vehicle details
     public void displayDetails() {
         System.out.println("Vehicle Type: " + type);
