@@ -39,4 +39,18 @@ public class FireTruck extends EmergencyVehicle implements VehicleMonitor {
         System.out.println("Water Capacity: " + waterCapacity + " liters");
         System.out.println("Pump Status: " + (isPumpActive ? "Active" : "Inactive"));
     }
+
+    @Override
+    public void displayDetails() {
+        super.displayDetails();
+        System.out.println("Water Capacity: " + waterCapacity + " liters");
+        System.out.println("Pump Status: " + (isPumpActive ? "Active" : "Inactive"));
+    }
+
+    @Override
+    public void respondToEmergency() {
+        activateWaterPump();
+        this.setSpeed(this.getMaxSpeed());
+        System.out.println("FireTruck is responding to a fire emergency at full speed!");
+    }
 }

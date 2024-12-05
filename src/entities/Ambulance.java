@@ -39,4 +39,18 @@ public class Ambulance extends EmergencyVehicle implements VehicleMonitor {
         System.out.println("Hospital: " + hospitalAffiliation);
         System.out.println("Current Speed: " + getSpeed() + " km/h");
     }
+
+    @Override
+    public void displayDetails() {
+        super.displayDetails();
+        System.out.println("Hospital Affiliation: " + hospitalAffiliation);
+        System.out.println("Emergency Status: " + (isOnEmergency ? "On Emergency" : "Available"));
+    }
+
+    @Override
+    public void respondToEmergency() {
+        startEmergencyResponse();
+        this.setSpeed(this.getMaxSpeed());
+        System.out.println("Ambulance is responding to an emergency at full speed!");
+    }
 }
