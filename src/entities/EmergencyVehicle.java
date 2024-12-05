@@ -1,6 +1,6 @@
 package entities;
 
-public class EmergencyVehicle extends Vehicle {
+public abstract class EmergencyVehicle extends Vehicle {
     // Static variable to count the total number of emergency vehicles
     private static int totalEmergencyVehicles = 0;
 
@@ -41,13 +41,8 @@ public class EmergencyVehicle extends Vehicle {
         System.out.println("Emergency Vehicle Type: " + emergencyType);
     }
 
-    // Method overloading to demonstrate polymorphism
-
-    // Basic emergency response
-    public void respondToEmergency() {
-        System.out.println(emergencyType + " responding to emergency!");
-        this.setSpeed(this.getMaxSpeed());
-    }
+    // Abstract method for emergency response
+    public abstract void respondToEmergency();
 
     // Emergency response with specific location
     public void respondToEmergency(String location) {

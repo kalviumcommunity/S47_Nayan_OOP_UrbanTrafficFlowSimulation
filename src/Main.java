@@ -68,87 +68,75 @@ public class Main {
     //     fireTruck.logVehicleData();
     // }
 
-    public static void demonstratePolymorphism() {
-        System.out.println("\n=== Demonstrating Polymorphism ===\n");
+    // public static void demonstratePolymorphism() {
+    //     System.out.println("\n=== Demonstrating Polymorphism ===\n");
 
-        // 1. Method Overloading (Compile-time Polymorphism)
-        System.out.println("1. Method Overloading Example (Emergency Response):");
-        Ambulance ambulance = new Ambulance("A-101", 0, 120, "City Hospital");
-        FireTruck fireTruck = new FireTruck("F-201", 0, 100, 5000);
+    //     // 1. Method Overloading (Compile-time Polymorphism)
+    //     System.out.println("1. Method Overloading Example (Emergency Response):");
+    //     Ambulance ambulance = new Ambulance("A-101", 0, 120, "City Hospital");
+    //     FireTruck fireTruck = new FireTruck("F-201", 0, 100, 5000);
 
-        System.out.println("\nTesting different emergency response scenarios:");
-        ambulance.respondToEmergency(); // Basic response
-        ambulance.respondToEmergency("Downtown"); // With location
-        fireTruck.respondToEmergency("Shopping Mall", 9); // With location and high severity
-        fireTruck.respondToEmergency("Factory District", 7, 3); // With additional units needed
+    //     System.out.println("\nTesting different emergency response scenarios:");
+    //     ambulance.respondToEmergency(); // Basic response
+    //     ambulance.respondToEmergency("Downtown"); // With location
+    //     fireTruck.respondToEmergency("Shopping Mall", 9); // With location and high severity
+    //     fireTruck.respondToEmergency("Factory District", 7, 3); // With additional units needed
 
-        // 2. Method Overriding (Runtime Polymorphism)
-        System.out.println("\n2. Method Overriding Example:");
+    //     // 2. Method Overriding (Runtime Polymorphism)
+    //     System.out.println("\n2. Method Overriding Example:");
         
-        // Using Vehicle reference to demonstrate runtime polymorphism
-        System.out.println("\nDisplaying vehicle details using Vehicle reference:");
-        Vehicle vehicleRef1 = ambulance; // Vehicle reference pointing to Ambulance
-        Vehicle vehicleRef2 = fireTruck; // Vehicle reference pointing to FireTruck
+    //     // Using Vehicle reference to demonstrate runtime polymorphism
+    //     System.out.println("\nDisplaying vehicle details using Vehicle reference:");
+    //     Vehicle vehicleRef1 = ambulance; // Vehicle reference pointing to Ambulance
+    //     Vehicle vehicleRef2 = fireTruck; // Vehicle reference pointing to FireTruck
         
-        vehicleRef1.displayDetails(); // Calls Ambulance's overridden version
-        System.out.println();
-        vehicleRef2.displayDetails(); // Calls FireTruck's overridden version
+    //     vehicleRef1.displayDetails(); // Calls Ambulance's overridden version
+    //     System.out.println();
+    //     vehicleRef2.displayDetails(); // Calls FireTruck's overridden version
 
-        // Using VehicleMonitor interface to demonstrate interface polymorphism
-        System.out.println("\nDemonstrating interface polymorphism with VehicleMonitor:");
-        VehicleMonitor monitor1 = ambulance; // VehicleMonitor reference pointing to Ambulance
-        VehicleMonitor monitor2 = fireTruck; // VehicleMonitor reference pointing to FireTruck
+    //     // Using VehicleMonitor interface to demonstrate interface polymorphism
+    //     System.out.println("\nDemonstrating interface polymorphism with VehicleMonitor:");
+    //     VehicleMonitor monitor1 = ambulance; // VehicleMonitor reference pointing to Ambulance
+    //     VehicleMonitor monitor2 = fireTruck; // VehicleMonitor reference pointing to FireTruck
         
-        System.out.println("Ambulance Status:");
-        monitor1.checkStatus();
-        System.out.println("\nFireTruck Status:");
-        monitor2.checkStatus();
-    }
+    //     System.out.println("Ambulance Status:");
+    //     monitor1.checkStatus();
+    //     System.out.println("\nFireTruck Status:");
+    //     monitor2.checkStatus();
+    // }
 
     public static void main(String[] args) {
-        // demonstrateInheritance();
-        demonstratePolymorphism();
-        // demonstrateConstructorsAndAutoCloseable();
+        System.out.println("\n=== Understanding Abstract Classes and Virtual Functions in Traffic Simulation ===\n");
 
-        // Create downtown factory
-        // VehicleFactory downtown = new VehicleFactory("Downtown", 200);
-        // downtown.createVehicle("Car");
+        // Demonstrate why we can't instantiate an abstract class
+        System.out.println("1. Abstract Class Demonstration:");
+        System.out.println("- Cannot create EmergencyVehicle directly (it's abstract)");
+        System.out.println("- Must create specific types like Ambulance or FireTruck\n");
 
-        // // When no longer needed
-        // downtown.close(); // Clean shutdown
+        // Create concrete implementations
+        System.out.println("2. Creating Concrete Implementations:");
+        
+        // Create an Ambulance
+        Ambulance ambulance = new Ambulance("A-101", 0, 120, "City Hospital");
+        System.out.println("Created Ambulance:");
+        ambulance.displayDetails();
+        
+        // Create a FireTruck
+        FireTruck fireTruck = new FireTruck("F-201", 0, 100, 5000);
+        System.out.println("\nCreated FireTruck:");
+        fireTruck.displayDetails();
 
-        // downtown.getFactoryCapacity(); // It won't work as factory is closed
-        // downtown.getFactoryName(); // It won't work as factory is closed
-
-        // // Create a TrafficManager instance for 3 vehicles
-        // TrafficManager manager = new TrafficManager(3);
-
-        // // Create vehicle instances
-        // Vehicle car = new Car("Sedan", 60, 120);
-        // Vehicle ambulance = new EmergencyVehicle("Ambulance", 80, 150, "Emergency Response");
-
-        // // Add vehicles to the traffic manager
-        // manager.addVehicle(car, 0);
-        // manager.addVehicle(ambulance, 1);
-
-        // // Create and set a traffic light (red light by default)
-        // TrafficLight trafficLight = new TrafficLight("Main Intersection", "Red", 30);
-        // manager.setTrafficLight(trafficLight);
-
-        // // Create and set a traffic rule (speed limit rule)
-        // SpeedLimitRule speedLimitRule = new SpeedLimitRule(100);  // Speed limit set to 100 km/h
-        // manager.setTrafficRule(speedLimitRule);
-
-        // // Create and set a fuel monitor for fuel efficiency tracking
-        // CarFuelMonitor carFuelMonitor = new CarFuelMonitor();
-        // manager.setFuelMonitor(carFuelMonitor);
-
-        // // Simulate traffic (this will apply both rules and fuel monitoring)
-        // manager.simulateTraffic();
-
-        // // Display all vehicle details at the end
-        // manager.displayAllVehicles();
-
-        // car.setSpeed(120, speedLimitRule);
+        // Demonstrate virtual function (polymorphic behavior)
+        System.out.println("\n3. Virtual Function (respondToEmergency) Demonstration:");
+        System.out.println("- Each vehicle type implements emergency response differently:\n");
+        
+        // Store vehicles in array of abstract type to demonstrate polymorphism
+        EmergencyVehicle[] vehicles = {ambulance, fireTruck};
+        
+        for (EmergencyVehicle vehicle : vehicles) {
+            System.out.println("Emergency Response for " + vehicle.getEmergencyType() + ":");
+            vehicle.respondToEmergency();
+            System.out.println();
+        }
     }
 }
