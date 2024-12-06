@@ -106,37 +106,86 @@ public class Main {
     // }
 
     public static void main(String[] args) {
-        System.out.println("\n=== Understanding Abstract Classes and Virtual Functions in Traffic Simulation ===\n");
+        demonstrateSingleResponsibilityPrinciple();
+        // System.out.println("\n=== Understanding Abstract Classes and Virtual Functions in Traffic Simulation ===\n");
 
-        // Demonstrate why we can't instantiate an abstract class
-        System.out.println("1. Abstract Class Demonstration:");
-        System.out.println("- Cannot create EmergencyVehicle directly (it's abstract)");
-        System.out.println("- Must create specific types like Ambulance or FireTruck\n");
+        // // Demonstrate why we can't instantiate an abstract class
+        // System.out.println("1. Abstract Class Demonstration:");
+        // System.out.println("- Cannot create EmergencyVehicle directly (it's abstract)");
+        // System.out.println("- Must create specific types like Ambulance or FireTruck\n");
 
-        // Create concrete implementations
-        System.out.println("2. Creating Concrete Implementations:");
+        // // Create concrete implementations
+        // System.out.println("2. Creating Concrete Implementations:");
         
-        // Create an Ambulance
-        Ambulance ambulance = new Ambulance("A-101", 0, 120, "City Hospital");
-        System.out.println("Created Ambulance:");
+        // // Create an Ambulance
+        // Ambulance ambulance = new Ambulance("A-101", 0, 120, "City Hospital");
+        // System.out.println("Created Ambulance:");
+        // ambulance.displayDetails();
+        
+        // // Create a FireTruck
+        // FireTruck fireTruck = new FireTruck("F-201", 0, 100, 5000);
+        // System.out.println("\nCreated FireTruck:");
+        // fireTruck.displayDetails();
+
+        // // Demonstrate virtual function (polymorphic behavior)
+        // System.out.println("\n3. Virtual Function (respondToEmergency) Demonstration:");
+        // System.out.println("- Each vehicle type implements emergency response differently:\n");
+        
+        // // Store vehicles in array of abstract type to demonstrate polymorphism
+        // EmergencyVehicle[] vehicles = {ambulance, fireTruck};
+        
+        // for (EmergencyVehicle vehicle : vehicles) {
+        //     System.out.println("Emergency Response for " + vehicle.getEmergencyType() + ":");
+        //     vehicle.respondToEmergency();
+        //     System.out.println();
+        // }
+        
+    }
+
+    public static void demonstrateSingleResponsibilityPrinciple() {
+        System.out.println("\n=== Demonstrating Single Responsibility Principle (SRP) ===\n");
+        
+        // Create vehicles with different speed configurations
+        Car sedan = new Car("Sedan", 60, 180);
+        Ambulance ambulance = new Ambulance("A-101", 80, 200, "City Hospital");
+        
+        System.out.println("1. Demonstrating Speed Control Separation:");
+        System.out.println("----------------------------------------");
+        
+        // Show how Vehicle class focuses on basic vehicle properties
+        System.out.println("Initial Vehicle States:");
+        sedan.displayDetails();
+        System.out.println();
         ambulance.displayDetails();
         
-        // Create a FireTruck
-        FireTruck fireTruck = new FireTruck("F-201", 0, 100, 5000);
-        System.out.println("\nCreated FireTruck:");
-        fireTruck.displayDetails();
-
-        // Demonstrate virtual function (polymorphic behavior)
-        System.out.println("\n3. Virtual Function (respondToEmergency) Demonstration:");
-        System.out.println("- Each vehicle type implements emergency response differently:\n");
+        // Demonstrate speed control handled by SpeedController
+        System.out.println("\n2. Testing Speed Control Logic:");
+        System.out.println("------------------------------");
         
-        // Store vehicles in array of abstract type to demonstrate polymorphism
-        EmergencyVehicle[] vehicles = {ambulance, fireTruck};
+        // Try setting valid speed
+        System.out.println("\nSetting valid speed for sedan (120 km/h):");
+        sedan.setSpeed(120);
         
-        for (EmergencyVehicle vehicle : vehicles) {
-            System.out.println("Emergency Response for " + vehicle.getEmergencyType() + ":");
-            vehicle.respondToEmergency();
-            System.out.println();
-        }
+        // Try setting speed exceeding limit
+        System.out.println("\nTrying to set speed exceeding limit for sedan (250 km/h):");
+        sedan.setSpeed(250);
+        
+        // Demonstrate speed control with traffic rule
+        System.out.println("\n3. Testing Speed Control with Traffic Rules:");
+        System.out.println("----------------------------------------");
+        
+        SpeedLimitRule speedLimit = new SpeedLimitRule(100);  // 100 km/h speed limit
+        System.out.println("\nApplying speed limit rule of 100 km/h to ambulance:");
+        ambulance.setSpeed(150, speedLimit);
+        
+        System.out.println("\nFinal Vehicle States:");
+        sedan.displayDetails();
+        System.out.println();
+        ambulance.displayDetails();
+        
+        System.out.println("\nThis demonstrates how SRP separates responsibilities:");
+        System.out.println("1. Vehicle class: Manages basic vehicle properties");
+        System.out.println("2. SpeedController class: Handles all speed-related operations");
+        System.out.println("3. SpeedLimitRule class: Manages traffic rule enforcement");
     }
 }
