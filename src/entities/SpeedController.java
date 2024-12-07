@@ -21,8 +21,15 @@ public class SpeedController {
         int validatedSpeed = validateAndGetSpeed(requestedSpeed);
         
         // Then apply any additional traffic rules if present
-        if (rule != null) {
-            rule.enforceRule(vehicle);  // Apply traffic rules like speed zones or emergency conditions
+        if (rule != null && rule instanceof SpeedLimitRule) {
+            SpeedLimitRule speedRule = (SpeedLimitRule) rule;
+            rule.enforceRule(vehicle);  // Log the speed check
+            
+            // Enforce the speed limit
+            if (validatedSpeed > speedRule.getSpeedLimit()) {
+                System.out.println("Adjusting speed to comply with speed limit...");
+                validatedSpeed = speedRule.getSpeedLimit();
+            }
         }
         
         return validatedSpeed;  // Return the validated speed to be used by the vehicle
