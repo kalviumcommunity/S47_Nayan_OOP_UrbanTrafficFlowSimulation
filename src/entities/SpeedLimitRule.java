@@ -18,4 +18,9 @@ public class SpeedLimitRule extends TrafficRule {
             System.out.println(vehicle.getType() + " is within the speed limit.");
         }
     }
+
+    // Method to get the speed limit
+    public int getSpeedLimit() {
+        return speedLimit;
+    }
 }
